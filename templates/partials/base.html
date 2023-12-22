@@ -5,7 +5,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=<device-width>, initial-scale=1.0" />
-    <title>WeSale Online Retail</title>
+    <title>CraftersHub</title>
 
     {% include 'styles/css.html' %}
     <link
@@ -14,12 +14,27 @@
     'output/style.css' %}"
     />
   </head>
-  <body>
+  <body
+    class="bg-[#f7f7f7] min-h-screen overflow-x-clip font-sans text-gray-100"
+  >
     <header class="w-full static">
-      <nav class="text-right space-x-5 p-4">
-        <a>WishList</a>
-        <a>Cart</a>
-        <a>Account</a>
+      <nav class="text-right space-x-5 p-4 flex justify-between items-center">
+        <div>
+          <input
+            class="w-[150px] h-[30px] border-2 border-gray-400 rounded-md p-4"
+            type="text"
+            placeholder="Search Product"
+            aria-placeholder="search product"
+            style="text-align: center"
+          />
+          <button class="bg-teal-500 px-4 rounded-md shadow-xl">Search</button>
+        </div>
+
+        <div class="font-normal">
+          <a>WishList</a>
+          <a>Cart</a>
+          <a>Account</a>
+        </div>
       </nav>
       <nav
         class="text-left py-3 pl-16 space-x-5 text-slate-100 bg-teal-500 w-full"
@@ -29,6 +44,16 @@
         <a>About</a>
         <a>Shop</a>
         <a>Vendors</a>
+      </nav>
+
+      <nav class="bg-teal-500 text-gray-100 mt-10 w-52 p-5">
+        <div class="flex flex-col space-y-5 justify-center items-start">
+          <a>Hot Deals</a>
+          <a>Home</a>
+          <a>About</a>
+          <a>Shop</a>
+          <a>Vendors</a>
+        </div>
       </nav>
     </header>
 

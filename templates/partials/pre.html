@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CraftersHub</title>
+    {% include 'styles/css.html' %}
+    <link
+      rel="stylesheet"
+      href="{% static
+    'output/style.css' %}"
+    />
+  </head>
+  <body class="bg-[#f7f7f7] min-h-screen overflow-x-clip font-sans w-full">
+    <header class="w-full">
+      <nav
+        class="flex justify-between items-center mr-10 p-5 text-teal-600 font-semibold"
+      >
+        <div>CraftersHub</div>
+        <div>Login</div>
+      </nav>
+      <div class="flex justify-center">
+        <hr class="w-[97%] text-5xl" />
+      </div>
+    </header>
+    {% block content%} {% endblock %}
+  </body>
+</html>

@@ -1,0 +1,68 @@
+{% extends "partials/pre.html" %}{% block content %}
+
+<section
+  class="flex flex-col justify-center items-center bg-gradient-to-tr from-teal-400 to-violet-600/70 p-5 border-1 w-full h-full text-gray-700"
+>
+  <div class="text-center p-5 text-gray-100">
+    <h2 class="text-bold text-2xl">Welcome to CraftersHub Online Retail</h2>
+  </div>
+
+  <!--------------Sign Up Form------------------>
+
+  <div class="w-auto h-auto bg-slate-100 rounded-lg">
+    <h3 class="text-center text-teal-500 font-semibold text-xl p-2">
+      CraftersHub Online Retail
+    </h3>
+    <p class="italic px-3">
+      If you have an existing account click here to
+      <a href="#" class="underline text-blue-600">Login</a>
+    </p>
+    <div class="p-4 flex justify-center">
+      <div class="flex flex-col space-y-1">
+        <h4 class="text-teal-500 font-semibold text-xl">SignUp</h4>
+        <label for="fullname" id="fullname">Full Name</label>
+        <input
+          type="text"
+          class="bg-gray-300/30 w-[250px] rounded-sm"
+          placeholder="Enter Full Names"
+        />
+        <label for="username" id="username">UserName</label>
+        <input
+          type="text"
+          class="bg-gray-300/30 w-[250px] rounded-sm"
+          placeholder="Enter username"
+        />
+        <label for="password" id="password">Password</label>
+        <input
+          type="password"
+          class="bg-gray-300/30 w-[250px] rounded-sm"
+          placeholder="Enter New Password"
+        />
+        <label for="confirm" id="confirm">Confirm Password</label>
+        <input
+          type="password"
+          class="bg-gray-300/30 w-[250px] rounded-sm"
+          placeholder="Confirm Password"
+        />
+        <div class="pt-3">
+          <button
+            class="bg-teal-600 text-gray-200 text-lg py-2 px-4 rounded-xl"
+          >
+            Sign Up
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--<div
+    class="w-52 h-52 rounded-full bg-blue-500 flex justify-center items-center z-0"
+  >
+    <div
+      class="w-44 h-44 rounded-full bg-green-500 flex justify-center items-center"
+    >
+      <div class="w-36 h-36 rounded-full bg-violet-600"></div>
+    </div>
+  </div> -->
+</section>
+{% endblock %}
