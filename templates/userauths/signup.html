@@ -1,7 +1,7 @@
 {% extends "partials/pre.html" %}{% block content %}
 
 <section
-  class="flex flex-col items-center bg-gradient-to-tr from-teal-400 to-violet-600/70 p-5 border-1 w-full h-[100vh] text-gray-700"
+  class="flex flex-col items-center bg-gradient-to-tr from-teal-400 to-violet-600/70 p-5 border-1 w-full h-full text-gray-700"
 >
   <div class="text-center p-5 text-gray-100">
     <h2 class="text-bold text-2xl">Welcome to CraftersHub Online Retail</h2>
@@ -14,23 +14,39 @@
       CraftersHub Online Retail
     </h3>
     <p class="italic px-3">
-      If you have an existing account click here to
+      If you have an existing account click
       <a href="{% url 'userauths:login' %}" class="underline text-blue-600"
-        >Login</a
+        >here</a
       >
+      to Login
     </p>
-    <div class="p-5 flex justify-center">
+    <div class="p-2 ml-3 flex justify-start">
       <div>
-        <h4 class="text-teal-500 font-semibold text-xl">SignUp</h4>
+        {% if form.errors %}
 
-        <form class="flex flex-col space-y-6 p-5">
-          <div>{{form.username}}</div>
+        <div class="w-[250px] p-2 rounded-md bg-red-300">
+          <strong>{{form.errors}}</strong>
+        </div>
 
-          <div>{{form.email}}</div>
+        {% endif %}
+        <h4 class="text-teal-500 font-semibold text-xl">Create Account</h4>
 
-          <div>{{form.password1}}</div>
+        <form method="POST" class="flex flex-col space-y-6">
+          {% csrf_token %}
+          <div class="shadow-sm">{{form.username}}</div>
 
-          <div>{{form.password2}}</div>
+          <div class="shadow-sm">{{form.email}}</div>
+
+          <div class="shadow-sm">{{form.password1}}</div>
+
+          <div class="shadow-sm">{{form.password2}}</div>
+
+          <button
+            class="bg-teal-500 w-32 p-2 rounded-lg font-medium text-gray-100"
+            type="submit"
+          >
+            Register
+          </button>
         </form>
       </div>
     </div>

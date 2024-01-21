@@ -25,13 +25,15 @@
             aria-placeholder="search product"
             style="text-align: center"
           />
-          <button class="bg-teal-500 px-4 rounded-md shadow-xl text-gray-100">Search</button>
+          <button class="bg-teal-500 px-4 rounded-md shadow-xl text-gray-100">
+            Search
+          </button>
         </div>
 
         <div class="font-medium text-teal-400 space-x-5">
           <a>WishList</a>
           <a>Cart</a>
-          <a>Account</a>
+          <a href="{% url 'userauths:logout' %}">Logout</a>
         </div>
       </nav>
       <nav
@@ -43,6 +45,15 @@
         <a>Shop</a>
         <a>Vendors</a>
       </nav>
+      {% if messages %} {% for message in messages %}
+
+      <div
+        class="w-[calc(100vw-15px)] h-8 rounded-md bg-cyan-500/40 my-2 ml-2 border-[1px] border-gray-700/40 {{message.tags}}"
+      >
+        {{message}}
+      </div>
+
+      {% endfor %} {% endif %}
     </header>
 
     {% block content %} {% endblock %}

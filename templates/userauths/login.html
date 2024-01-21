@@ -1,12 +1,8 @@
-{% extends "partials/pre.html" %}{% block content %}
+{% extends "partials/base.html" %}{% block content %}
 
 <section
-  class="flex flex-col items-center bg-gradient-to-tr from-teal-400 to-violet-600/70 p-5 border-1 w-full h-[100vh] text-gray-700"
+  class="flex flex-col items-center bg-gradient-to-tr from-teal-400 to-violet-600/70 p-5 border-1 w-full h-auto text-gray-700"
 >
-  <div class="text-center p-5 text-gray-100">
-    <h2 class="text-bold text-2xl">Welcome to CraftersHub Online Retail</h2>
-  </div>
-
   <!--------------Log in Form------------------>
 
   <div class="w-auto h-auto bg-slate-100 rounded-lg">
@@ -14,33 +10,40 @@
       CraftersHub Online Retail
     </h3>
     <p class="italic px-3">
-      New User ? click here to
-      <a href="{% url 'userauths:register' %}" class="underline text-blue-600">Register</a> new account
+      New User ? click
+      <a href="{% url 'userauths:register' %}" class="underline text-blue-600"
+        >here</a
+      >
+      to Register new account
     </p>
     <div class="p-5 flex justify-center">
-      <div class="flex flex-col space-y-3">
+      <div>
         <h4 class="text-teal-500 font-semibold text-xl">LogIn</h4>
 
-        <label for="username" id="username">UserName</label>
-        <input
-          type="text"
-          class="bg-gray-300/30 w-[250px] rounded-sm"
-          placeholder="Enter username"
-        />
-        <label for="password" id="password">Password</label>
-        <input
-          type="password"
-          class="bg-gray-300/30 w-[250px] rounded-sm"
-          placeholder="Enter Password"
-        />
+        <form class="flex flex-col space-y-3" method="POST">
+          {% csrf_token %}
+          <input
+            type="text"
+            class="bg-gray-300/60 w-[250px] rounded-[7px] p-3 shadow-sm border border-gray-400"
+            name="email"
+            placeholder="Username or Email"
+            required
+          />
 
-        <div class="pt-3">
+          <input
+            type="password"
+            name="password"
+            class="bg-gray-300/30 w-[250px] rounded-[7px] p-3 shadow-sm border border-gray-600"
+            placeholder="Password"
+          />
+
           <button
-            class="bg-teal-600 text-gray-200 text-lg py-2 px-4 rounded-xl"
+            class="bg-teal-500 w-32 p-2 rounded-lg font-medium text-gray-100"
+            type="submit"
           >
             LogIn
           </button>
-        </div>
+        </form>
       </div>
     </div>
   </div>

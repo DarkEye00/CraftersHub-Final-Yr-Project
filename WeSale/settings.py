@@ -41,7 +41,7 @@ INSTALLED_APPS = [
 
     #Custom_project_apps
     'core',
-    'userauths'
+    'userauths',
 ]
 
 MIDDLEWARE = [

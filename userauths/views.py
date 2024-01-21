@@ -1,7 +1,12 @@
 from django.shortcuts import render, redirect
-from userauths.forms import UserRegistrationForm
+from django.contrib.auth import authenticate, login
+from django.contrib.auth import logout
 from django.contrib import messages
-from django.contrib.auth import authenticate
+from django.conf import settings
+from userauths.forms import UserRegistrationForm
+
+
+User = settings.AUTH_USER_MODEL
 
 # Create your views here.
 def sign_up(request):
@@ -17,6 +22,7 @@ def sign_up(request):
                                     )
             
             login(request, new_user)
+            
             return redirect("core:index")
             
 
@@ -30,7 +36,41 @@ def sign_up(request):
 
     return render(request, "userauths/signup.html", context)
 
-def login(request):
-    return render (request, "userauths/login.html")
+#logging in view
 
+def sign_in(request):
+    #checking if a user is logged in
+    if request.user.is_authenticated:
+        messages.warning(request, "Your are already logged in")
+        return redirect("core:index")
+       
+    if request.method == "POST":
+        email = request.POST.get("email")
+        password = request.POST.get("password")  
 
+        try:
+            user = User.obejct.get(email=email)
+        except:
+            messages.warning(request, f"User with {email} does not exist")
+        
+        #login logic
+        user = authenticate(request, email=email, password=password)
+
+        if user is not None:#user exists in the database
+            login(request, user)
+            messages.success(request, "Login Successful")
+            return redirect("core:index")
+
+        else:
+            messages.warning(request, "User Does Not Exists, Create an Account")
+
+    context = {
+
+    }
+
+    return render(request, "userauths/login.html", context)
+        
+def logout_view(request):
+    logout(request)
+    messages.success(request, "You have logged out")
+    return redirect("userauths:login")
