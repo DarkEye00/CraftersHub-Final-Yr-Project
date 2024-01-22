@@ -4,3 +4,4 @@ tailwind.config.js
 package.json
 .idea
 __pycache__
+db.sqlite3

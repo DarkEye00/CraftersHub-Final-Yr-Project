@@ -14,7 +14,7 @@
     'output/style.css' %}"
     />
   </head>
-  <body class="bg-[#f7f7f7] min-h-screen font-sans">
+  <body class="bg-[#f7f7f7] min-h-screen font-sans overflow-y-hidden">
     <header class="w-full static">
       <nav class="text-right space-x-5 p-4 flex justify-between items-center">
         <div>
@@ -48,7 +48,7 @@
       {% if messages %} {% for message in messages %}
 
       <div
-        class="w-[calc(100vw-15px)] h-8 rounded-md bg-cyan-500/40 my-2 ml-2 border-[1px] border-gray-700/40 {{message.tags}}"
+        class="w-[calc(100vw-15px)] h-8  flex items-center my-2 ml-2 p-5  rounded-md bg-cyan-500/40  border-[1px] border-gray-700/40 {{message.tags}}"
       >
         {{message}}
       </div>
@@ -57,22 +57,5 @@
     </header>
 
     {% block content %} {% endblock %}
-
-    <footer
-      class="bg-teal-500 flex flex-row justify-center space-x-16 p-5 bottom-0 fixed inset-x-0 text-slate-100"
-    >
-      <div class="flex flex-col">
-        <a>Disclaimer</a>
-        <a>Pricvacy Policy</a>
-        <a>Legal</a>
-      </div>
-
-      <div class="flex flex-col">
-        <a>Home</a>
-        <a>Shops</a>
-        <a>Vendors</a>
-        <a>About</a>
-      </div>
-    </footer>
   </body>
 </html>

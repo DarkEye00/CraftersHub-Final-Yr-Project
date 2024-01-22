@@ -1,7 +1,7 @@
 {% extends "partials/base.html" %}{% block content %}
 
 <section
-  class="flex flex-col items-center bg-gradient-to-tr from-teal-400 to-violet-600/70 p-5 border-1 w-full h-auto text-gray-700"
+  class="flex flex-col items-center bg-gradient-to-tr from-teal-400 to-violet-600/70 border-1 w-full h-[100vh] text-gray-700 p-5 mt-5"
 >
   <!--------------Log in Form------------------>
 
@@ -18,6 +18,13 @@
     </p>
     <div class="p-5 flex justify-center">
       <div>
+        {% if form.errors %}
+
+        <div class="w-[250px] p-2 rounded-md bg-red-300">
+          <strong>{{form.errors}}</strong>
+        </div>
+
+        {% endif %}
         <h4 class="text-teal-500 font-semibold text-xl">LogIn</h4>
 
         <form class="flex flex-col space-y-3" method="POST">

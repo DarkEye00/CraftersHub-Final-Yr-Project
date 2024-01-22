@@ -2,11 +2,11 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.contrib import messages
-from django.conf import settings
 from userauths.forms import UserRegistrationForm
+from userauths.models import User
 
 
-User = settings.AUTH_USER_MODEL
+#User = settings.AUTH_USER_MODEL
 
 # Create your views here.
 def sign_up(request):
@@ -49,20 +49,19 @@ def sign_in(request):
         password = request.POST.get("password")  
 
         try:
-            user = User.obejct.get(email=email)
+            user = User.objects.get(email=email)
+             #login logic
+            user = authenticate(request, email=email, password=password)
+
+            if user is not None:#user exists in the database
+                login(request, user)
+                messages.success(request, "Login Successful !")
+                return redirect("core:index")
+
+            else:
+                messages.warning(request, "User Does Not Exists, Create an Account")
         except:
-            messages.warning(request, f"User with {email} does not exist")
-        
-        #login logic
-        user = authenticate(request, email=email, password=password)
-
-        if user is not None:#user exists in the database
-            login(request, user)
-            messages.success(request, "Login Successful")
-            return redirect("core:index")
-
-        else:
-            messages.warning(request, "User Does Not Exists, Create an Account")
+                messages.warning(request, f"User with {email} does not exist")
 
     context = {
 
