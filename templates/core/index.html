@@ -1,25 +1,40 @@
 {% extends 'partials/base.html' %} {% block content %}
 
 <main>
-  <section class="flex gap-10">
-    <nav class="bg-teal-500 text-gray-100 mt-10 w-52 p-5">
-      <div class="flex flex-col space-y-5 justify-center items-start">
+  <section class="flex gap-10 pr-2">
+    <nav class="bg-teal-500 text-gray-100 mt-5 w-52 p-5">
+      <div class="flex flex-col space-y-5">
         <a>Hot Deals</a>
-        <a>Home</a>
+        <hr />
+        <a href="{% url 'core:index' %}">Home</a>
+        <hr />
         <a>About</a>
+        <hr />
         <a>Shop</a>
+        <hr />
         <a>Vendors</a>
       </div>
     </nav>
-    <div>
-      {% for p in Product %}
-      <div
-        class="bg-gray-50 w-40 h-40 flex justify-center mt-10 shadow-xl border rounded-lg"
+
+    <div class="bg-white w-full mt-5 rounded-lg">
+      <h2
+        class="bg-amber-600 p-3 rounded-t-md text-gray-100 font-semibold text-xl"
       >
-        <p>{{p.title}}</p>
-        <img class="w-24 h-24 object-cover mt-10" src="{{p.image.url}}" />
+        New Year's Deal
+      </h2>
+
+      <div class="grid grid-cols-3">
+        {% for p in Product %}
+        <div
+          class="bg-gray-50 w-40 h-40 flex flex-col justify-center items-center my-5 mx-5 p-4 shadow-xl border rounded-lg"
+        >
+          <img class="w-24 h-24 object-cover" src="{{p.image.url}}" />
+          <p>{{p.title}}</p>
+          <p>{{p.price}}</p>
+        </div>
+
+        {% endfor %}
       </div>
-      {% endfor %}
     </div>
   </section>
 </main>

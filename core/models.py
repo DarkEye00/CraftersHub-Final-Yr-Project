@@ -65,11 +65,13 @@ class Product(models.Model):
     title = models.CharField(max_length=100)
 
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
+    category = models.ForeignKey(
+        Category, on_delete=models.SET_NULL, null=True, related_name="category"
+    )
     image = models.ImageField(upload_to=user_directory_path)
 
     description = models.TextField(null=True, blank=True)
-    price = models.DecimalField(max_digits=99999, decimal_places=2, default="1.99")
+    price = models.DecimalField(max_digits=99999, decimal_places=2, default="500")
     old_price = models.DecimalField(max_digits=99999, decimal_places=2, default="2.99")
 
     specifications = models.TextField(blank=True, null=True)

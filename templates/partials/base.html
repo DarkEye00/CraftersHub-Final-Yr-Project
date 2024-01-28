@@ -37,18 +37,48 @@
         </div>
       </nav>
       <nav
-        class="text-left py-3 pl-16 space-x-5 text-slate-100 bg-teal-500 w-full"
+        class="text-left py-3 pl-16 space-x-5 text-slate-100 bg-teal-500 w-full font-medium"
       >
-        <a>Hot Deals</a>
-        <a>Home</a>
-        <a>About</a>
-        <a>Shop</a>
-        <a>Vendors</a>
+        <a
+          ><button
+            class="hover:text-yellow-400 hover:underline transition hover:-translate-y-2 hover:translate-x-1 duration-100 ease-out"
+          >
+            Hot Deals
+          </button></a
+        >
+        <a href="{% url 'core:index' %}"
+          ><button
+            class="hover:text-yellow-400 hover:underline transition hover:-translate-y-2 hover:translate-x-1 duration-100 ease-out"
+          >
+            Home
+          </button></a
+        >
+        <a
+          ><button
+            class="hover:text-yellow-400 hover:underline transition hover:-translate-y-2 hover:translate-x-1 duration-100 ease-out"
+          >
+            About
+          </button></a
+        >
+        <a
+          ><button
+            class="hover:text-yellow-400 hover:underline transition hover:-translate-y-2 hover:translate-x-1 duration-100 ease-out"
+          >
+            Shop
+          </button></a
+        >
+        <a
+          ><button
+            class="hover:text-yellow-400 hover:underline transition hover:-translate-y-2 hover:translate-x-1 duration-100 ease-out"
+          >
+            Vendors
+          </button></a
+        >
       </nav>
       {% if messages %} {% for message in messages %}
 
       <div
-        class="w-[calc(100vw-15px)] h-8  flex items-center my-2 ml-2 p-5  rounded-md bg-cyan-500/40  border-[1px] border-gray-700/40 {{message.tags}}"
+        class="w-[90%] h-8 flex items-center my-2 ml-2 p-5 rounded-md bg-cyan-500/40 border-[1px] border-gray-700/40 {{message.tags}}"
       >
         {{message}}
       </div>

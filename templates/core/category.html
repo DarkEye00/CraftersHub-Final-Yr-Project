@@ -1,0 +1,45 @@
+{% extends 'partials/base.html' %} {% block content %}
+<main>
+  <section class="flex justify-between gap-10 pr-2">
+    <div class="grid grid-cols-3 justify-evenly">
+      {% for c in Category %}
+
+      <div
+        class="w-56 h-auto flex flex-col justify-center items-center my-5 mx-5 p-5 shadow-xl border rounded-lg"
+      >
+        <p class="text-2xl">{{c.title}}</p>
+
+        <img class="w-44 h-44 object-cover" src="{{c.image.url}}" />
+        <p class="text-xl text-serif">
+          {{c.category.count}} Product{{c.category.count|pluralize }}
+        </p>
+      </div>
+
+      {% endfor %}
+    </div>
+
+    <hr />
+
+    <nav class="shadow-2xl text-black-100 mt-5 w-52 p-5">
+      <div class="flex flex-col space-y-5">
+        <h2>Category</h2>
+        <hr />
+
+        <ul class="space-y-5">
+          {% for c in Category %}
+          <li class="flex flex-row justify-between">
+            <img class="w-8 h-8 object-cover" src="{{c.image.url}}" />
+            <a href="#">{{c.title}}</a>
+            <span
+              class="bg-amber-400 w-7 h-7 rounded-full flex items-center justify-center font-semibold"
+              >{{c.category.count}}</span
+            >
+          </li>
+
+          {% endfor %}
+        </ul>
+      </div>
+    </nav>
+  </section>
+</main>
+{% endblock %}

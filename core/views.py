@@ -20,5 +20,9 @@ def index(request):
     return render(request, "core/index.html", context)
 
 
-def cart(request):
-    return render(request, "cart.html")
+def category_list_view(request):
+    category = Category.objects.all()
+
+    context = {"Category": category}
+
+    return render(request, "core/category.html", context)
