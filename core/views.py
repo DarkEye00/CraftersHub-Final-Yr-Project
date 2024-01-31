@@ -16,7 +16,7 @@ from core.models import (
 def index(request):
     products = Product.objects.all()
 
-    context = {"Product": products}
+    context = {"products": products}
     return render(request, "core/index.html", context)
 
 
@@ -26,3 +26,12 @@ def category_list_view(request):
     context = {"Category": category}
 
     return render(request, "core/category.html", context)
+
+
+def category_product_view(request, cid):
+    category = Category.objects.get(cid=cid)
+    products = Product.objects.filter(category=category)
+
+    context = {"category": category, "products": products}
+
+    return render(request, "core/category-product-list.html", context)

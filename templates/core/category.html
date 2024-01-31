@@ -1,7 +1,9 @@
 {% extends 'partials/base.html' %} {% block content %}
 <main>
-  <section class="flex justify-between gap-10 pr-2">
-    <div class="grid grid-cols-3 justify-evenly">
+  <section class="flex justify-between gap-10 pr-2 max-[500px]:justify-center">
+    <div
+      class="grid grid-cols-1 justify-evenly space-x-5 md:grid-cols-2 lg:grid-cols-3"
+    >
       {% for c in Category %}
 
       <div
@@ -9,7 +11,7 @@
       >
         <p class="text-2xl">{{c.title}}</p>
 
-        <img class="w-44 h-44 object-cover" src="{{c.image.url}}" />
+        <img class="w-auto h-44 object-cover" src="{{c.image.url}}" />
         <p class="text-xl text-serif">
           {{c.category.count}} Product{{c.category.count|pluralize }}
         </p>
@@ -20,7 +22,9 @@
 
     <hr />
 
-    <nav class="shadow-2xl text-black-100 mt-5 w-52 p-5">
+    <nav
+      class="shadow-2xl text-black-100 mt-5 w-52 h-60 p-5 max-[500px]:hidden"
+    >
       <div class="flex flex-col space-y-5">
         <h2>Category</h2>
         <hr />
