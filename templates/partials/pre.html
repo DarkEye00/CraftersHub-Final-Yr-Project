@@ -17,13 +17,22 @@
         class="flex justify-between items-center mr-10 p-5 text-teal-600 font-semibold"
       >
         <a>CraftersHub</a>
-        <div class="space-x-5">
+        <!--<div class="space-x-5">
           <a href="{% url "userauths:register" %}">SignUp</a>
-        </div>
+        </div> -->
       </nav>
-     <!-- <div class="flex justify-center">
+      <!-- <div class="flex justify-center">
         <hr class="w-[97%] text-5xl" />
       </div> -->
+      {% if messages %} {% for message in messages %}
+
+      <div
+        class="w-[90%] h-8 flex items-center my-2 ml-2 p-5 rounded-md bg-cyan-500/40 border-[1px] border-gray-700/40 {{message.tags}}"
+      >
+        {{message}}
+      </div>
+
+      {% endfor %} {% endif %}
     </header>
     {% block content%} {% endblock %}
   </body>

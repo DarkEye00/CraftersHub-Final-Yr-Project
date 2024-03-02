@@ -55,7 +55,15 @@ class AddressAdmin(admin.ModelAdmin):
 
 class ProductsAdmin(admin.ModelAdmin):
     inlines = [ProductImagesAdmin]
-    list_display = ["user", "title", "product_image", "price", "status", "in_stock"]
+    list_display = [
+        "user",
+        "title",
+        "product_image",
+        "price",
+        "status",
+        "in_stock",
+        "pid",
+    ]
 
 
 admin.site.register(Product, ProductsAdmin)

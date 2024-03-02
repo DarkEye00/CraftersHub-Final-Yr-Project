@@ -1,0 +1,20 @@
+{% extends "partials/base.html" %} {% block content %}
+
+<div class="flex">
+  {% for p in products %}
+  <div
+    class="bg-gray-50 w-40 h-40 flex flex-col justify-center items-center my-5 mx-5 p-4 shadow-xl border rounded-lg"
+  >
+    <img class="w-24 h-24 object-cover" src="{{p.image.url}}" />
+    <p>{{p.title}}</p>
+    <p>{{p.price}}</p>
+  </div>
+
+  {% endfor %}
+</div>
+
+<div>
+  <h2>Products You might like</h2>
+</div>
+
+{% endblock %}

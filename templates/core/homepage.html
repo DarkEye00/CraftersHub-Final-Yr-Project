@@ -39,7 +39,8 @@
         <div class="font-medium text-teal-400 space-x-5">
           <a>WishList</a>
           <a>Cart</a>
-          <a href="{% url 'userauths:logout' %}">Logout</a>
+          <!--<a href="{% url 'userauths:login' %}">Login</a>-->
+          <a href="{% url 'userauths:register' %}">SignUp</a>
         </div>
       </nav>
       <nav
@@ -52,14 +53,14 @@
             Hot Deals
           </button></a
         >
-        <a href="{% url 'core:index' %}"
+        <a href="{% url 'core:home' %}"
           ><button
             class="hover:text-yellow-400 hover:underline transition hover:-translate-y-2 hover:translate-x-1 duration-100 ease-out"
           >
             Home
           </button></a
         >
-        <a href="{% url 'core:category-list' %}"
+        <a href="#"
           ><button
             class="hover:text-yellow-400 hover:underline transition hover:-translate-y-2 hover:translate-x-1 duration-100 ease-out"
           >
@@ -73,7 +74,7 @@
             Shop
           </button></a
         >
-        <a href="{% url 'core:vendor-list' %}"
+        <a href="#"
           ><button
             class="hover:text-yellow-400 hover:underline transition hover:-translate-y-2 hover:translate-x-1 duration-100 ease-out"
           >
@@ -91,7 +92,66 @@
 
       {% endfor %} {% endif %}
     </header>
+    <main>
+      <section class="flex gap-10 pr-2">
+        <nav class="bg-teal-500 text-gray-100 mt-5 w-52 p-5">
+          <div class="flex flex-col space-y-5">
+            <a href="#">Browse all Categories</a>
+            <hr />
+            <a href="{% url 'core:home' %}">Home</a>
+            <hr />
+            <a>About</a>
+            <hr />
+            <a>Shop</a>
+            <hr />
+            <a>Vendors</a>
+          </div>
+        </nav>
 
-    {% block content %} {% endblock %}
+        <div class="bg-white w-full mt-5 rounded-lg">
+          <h2
+            class="bg-amber-600 p-3 rounded-t-md text-gray-100 font-semibold text-xl"
+          >
+            Popular Products
+          </h2>
+
+          <div class="grid grid-cols-3">
+            {% for p in popular %}
+            <div
+              class="bg-gray-50 w-40 h-48 flex flex-col justify-center items-center my-5 mx-5 p-4 shadow-xl border rounded-lg text-gray-600"
+            >
+              <img class="w-24 h-24 object-cover" src="{{p.image.url}}" />
+              <p class="text-center">{{p.title}}</p>
+              <p>{{p.price}}</p>
+            </div>
+
+            {% endfor %}
+          </div>
+        </div>
+      </section>
+
+      <section class="mr-2">
+        <div class="bg-white w-full mt-5 rounded-lg">
+          <h2
+            class="bg-teal-500 p-3 rounded-t-md text-gray-100 font-semibold text-xl"
+          >
+            All Products
+          </h2>
+
+          <div class="grid grid-cols-4">
+            {% for f in products %}
+            <div
+              class="bg-gray-50 w-40 h-48 text-gray-600 flex flex-col justify-center items-center my-5 mx-5 p-4 shadow-xl border rounded-lg"
+            >
+              <img class="w-24 h-24 object-cover" src="{{f.image.url}}" />
+              <p>{{f.title}}</p>
+              <p>{{f.price}}</p>
+            </div>
+
+            {% endfor %}
+          </div>
+        </div>
+      </section>
+    </main>
   </body>
 </html>

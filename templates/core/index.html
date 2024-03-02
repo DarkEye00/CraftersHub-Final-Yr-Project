@@ -4,7 +4,7 @@
   <section class="flex gap-10 pr-2">
     <nav class="bg-teal-500 text-gray-100 mt-5 w-52 p-5">
       <div class="flex flex-col space-y-5">
-        <a href="{% url 'core:category_list' %}">Browse all Categories</a>
+        <a href="{% url 'core:category-list' %}">Browse all Categories</a>
         <hr />
         <a href="{% url 'core:index' %}">Home</a>
         <hr />
@@ -20,17 +20,86 @@
       <h2
         class="bg-amber-600 p-3 rounded-t-md text-gray-100 font-semibold text-xl"
       >
-        New Year's Deal
+        Popular Products
       </h2>
 
       <div class="grid grid-cols-3">
-        {% for p in products %}
+        {% for p in popular %}
         <div
-          class="bg-gray-50 w-40 h-40 flex flex-col justify-center items-center my-5 mx-5 p-4 shadow-xl border rounded-lg"
+          class="bg-gray-50 w-40 h-48 flex flex-col justify-center items-center my-5 mx-5 p-4 shadow-xl border rounded-lg text-gray-600"
         >
           <img class="w-24 h-24 object-cover" src="{{p.image.url}}" />
-          <p>{{p.title}}</p>
+          <p class="text-center">{{p.title}}</p>
           <p>{{p.price}}</p>
+        </div>
+
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="mr-2">
+    <div class="bg-white w-full mt-5 rounded-lg">
+      <h2
+        class="bg-gray-900 p-3 rounded-t-md text-gray-100 font-semibold text-xl"
+      >
+        Home Decors
+      </h2>
+
+      <div class="grid grid-cols-4">
+        {% for h in home %}
+        <div
+          class="bg-gray-50 w-40 h-48 text-gray-600 flex flex-col justify-center items-center my-5 mx-5 p-4 shadow-xl border rounded-lg"
+        >
+          <img class="w-24 h-24 object-cover" src="{{h.image.url}}" />
+          <p class="text-center">{{h.title}}</p>
+          <p>{{h.price}}</p>
+        </div>
+
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="mr-2">
+    <div class="bg-white w-full mt-5 rounded-lg">
+      <h2
+        class="bg-teal-500 p-3 rounded-t-md text-gray-100 font-semibold text-xl"
+      >
+        Furniture
+      </h2>
+
+      <div class="grid grid-cols-4">
+        {% for f in furniture %}
+        <div
+          class="bg-gray-50 w-40 h-48 text-gray-600 flex flex-col justify-center items-center my-5 mx-5 p-4 shadow-xl border rounded-lg"
+        >
+          <img class="w-24 h-24 object-cover" src="{{f.image.url}}" />
+          <p class="text-center">{{f.title}}</p>
+          <p>{{f.price}}</p>
+        </div>
+
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="mr-2">
+    <div class="bg-white w-full mt-5 rounded-lg">
+      <h2
+        class="bg-gray-900 p-3 rounded-t-md text-gray-100 font-semibold text-xl"
+      >
+        For Women
+      </h2>
+
+      <div class="grid grid-cols-4">
+        {% for w in women %}
+        <div
+          class="bg-gray-50 w-40 h-48 text-gray-600 flex flex-col justify-center items-center my-5 mx-5 p-4 shadow-xl border rounded-lg"
+        >
+          <img class="w-24 h-24 object-cover" src="{{w.image.url}}" />
+          <p class="text-center">{{w.title}}</p>
+          <p>{{w.price}}</p>
         </div>
 
         {% endfor %}

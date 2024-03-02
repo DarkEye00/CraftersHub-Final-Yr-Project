@@ -45,7 +45,9 @@ class Vendor(models.Model):
     contact = models.CharField(max_length=100, default="+254 (712) 345 ")
     rating = models.CharField(max_length=100, default="100")
 
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey(
+        User, on_delete=models.SET_NULL, null=True, related_name="user"
+    )
 
     class Meta:
         verbose_name_plural = "Vendors"
@@ -68,6 +70,10 @@ class Product(models.Model):
     category = models.ForeignKey(
         Category, on_delete=models.SET_NULL, null=True, related_name="category"
     )
+    vendor = models.ForeignKey(
+        Vendor, on_delete=models.SET_NULL, null=True, related_name="product"
+    )
+
     image = models.ImageField(upload_to=user_directory_path)
 
     description = models.TextField(null=True, blank=True)
@@ -80,6 +86,7 @@ class Product(models.Model):
     STATUS = (
         ("rejected", "Rejected"),
         ("published", "Published"),
+        ("popular", "Popular"),
     )
 
     product_status = models.CharField(

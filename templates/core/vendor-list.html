@@ -1,0 +1,40 @@
+{% extends 'partials/base.html' %} {% block content %}
+
+<h2 class="text-3xl text-center font-semibold p-8 text-gray-700">
+  Vendors List
+</h2>
+
+<section class="text-gray-700">
+  <p class="text-center italic text-xl">
+    We have
+    <strong class="text-green-600">{{vendors.count}}</strong>
+    vendor{{vendors.count|pluralize}} now
+  </p>
+  <div class="flex">
+    {% for v in vendors %}
+
+    <div
+      class="w-[500px] h-auto flex flex-col justify-center items-center my-5 mx-5 p-5 shadow-xl border rounded-lg"
+    >
+      <img class="w-28 h-36 rounded-full object-cover" src="{{v.image.url}}" />
+
+      <p class="text-xl">{{v.user}}</p>
+      <p class="text-xl">Call us on: {{v.contact}}</p>
+
+      <address class="text-xl">Address: {{v.address}}</address>
+
+      <p class="text-xl bg-emerald-500/50 text-green-800 p-2 rounded-md">
+        {{v.product.all.count}} product{{v.product.count|pluralize}}
+      </p>
+
+      <!--<img class="w-auto h-44 object-cover" src="{{v.image.url}}" /> 
+          <p class="text-xl text-serif">
+            {{c.category.count}} Product{{c.category.count|pluralize }}
+          </p> -->
+    </div>
+
+    {% endfor %}
+  </div>
+</section>
+
+{% endblock %}
