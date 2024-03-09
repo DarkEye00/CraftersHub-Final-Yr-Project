@@ -1,0 +1,25 @@
+<!-- recommendations/templates/recommendations/recommended_items.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Recommended Items</title>
+  </head>
+  <body>
+    <h1>Recommended Items</h1>
+    <ul>
+      {% for r in recommended %}
+      <li>
+        <strong>{{ r.title }}</strong><br />
+        Description: {{ r.description }}<br />
+        Price: ${{ r.price }}<br />
+        Category: {{ r.category }}
+      </li>
+      <!-- Your HTML template code -->
+      <a href="{% url 'core:recommend' %}">View Recommendations</a>
+
+      {% endfor %}
+    </ul>
+  </body>
+</html>

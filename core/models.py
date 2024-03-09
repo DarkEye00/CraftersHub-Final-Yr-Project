@@ -38,16 +38,15 @@ class Vendor(models.Model):
         unique=True, length=10, max_length=30, prefix="vid", alphabet="abcdefg123456"
     )
     title = models.CharField(max_length=100)
-    image = models.ImageField(upload_to=user_directory_path, default="vendor.jpg")
+    image = models.ImageField(
+        upload_to=user_directory_path, default="vendor.jpg", blank=True
+    )
     description = models.TextField(null=True, blank=True)
 
     address = models.CharField(max_length=100, default="Nairobi, Kenya")
     contact = models.CharField(max_length=100, default="+254 (712) 345 ")
-    rating = models.CharField(max_length=100, default="100")
 
-    user = models.ForeignKey(
-        User, on_delete=models.SET_NULL, null=True, related_name="user"
-    )
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural = "Vendors"
@@ -62,7 +61,12 @@ class Vendor(models.Model):
 # MODEL FOR THE ACTUAL PRODUCTS
 class Product(models.Model):
     pid = ShortUUIDField(
-        unique=True, length=10, max_length=30, prefix="prd", alphabet="abcde345678"
+        primary_key=True,
+        unique=True,
+        length=10,
+        max_length=30,
+        prefix="prd",
+        alphabet="abcde345678",
     )
     title = models.CharField(max_length=100)
 

@@ -25,13 +25,17 @@
 
       <div class="grid grid-cols-3">
         {% for p in popular %}
-        <div
-          class="bg-gray-50 w-40 h-48 flex flex-col justify-center items-center my-5 mx-5 p-4 shadow-xl border rounded-lg text-gray-600"
-        >
-          <img class="w-24 h-24 object-cover" src="{{p.image.url}}" />
-          <p class="text-center">{{p.title}}</p>
-          <p>{{p.price}}</p>
-        </div>
+        <button>
+          <a href="{% url 'core:details' p.pk %}">
+            <div
+              class="bg-gray-50 w-40 h-48 flex flex-col justify-center items-center my-5 mx-5 p-4 shadow-xl border rounded-lg text-gray-600"
+            >
+              <img class="w-24 h-24 object-cover" src="{{p.image.url}}" />
+              <p class="text-center">{{p.title}}</p>
+              <p>{{p.price}}</p>
+            </div>
+          </a>
+        </button>
 
         {% endfor %}
       </div>
@@ -48,13 +52,17 @@
 
       <div class="grid grid-cols-4">
         {% for h in home %}
-        <div
-          class="bg-gray-50 w-40 h-48 text-gray-600 flex flex-col justify-center items-center my-5 mx-5 p-4 shadow-xl border rounded-lg"
-        >
-          <img class="w-24 h-24 object-cover" src="{{h.image.url}}" />
-          <p class="text-center">{{h.title}}</p>
-          <p>{{h.price}}</p>
-        </div>
+        <button>
+          <a href="{% url 'core:details' h.pk %}">
+            <div
+              class="bg-gray-50 w-40 h-48 text-gray-600 flex flex-col justify-center items-center my-5 mx-5 p-4 shadow-xl border rounded-lg"
+            >
+              <img class="w-24 h-24 object-cover" src="{{h.image.url}}" />
+              <p class="text-center">{{h.title}}</p>
+              <p>{{h.price}}</p>
+            </div>
+          </a>
+        </button>
 
         {% endfor %}
       </div>
@@ -71,13 +79,17 @@
 
       <div class="grid grid-cols-4">
         {% for f in furniture %}
-        <div
-          class="bg-gray-50 w-40 h-48 text-gray-600 flex flex-col justify-center items-center my-5 mx-5 p-4 shadow-xl border rounded-lg"
-        >
-          <img class="w-24 h-24 object-cover" src="{{f.image.url}}" />
-          <p class="text-center">{{f.title}}</p>
-          <p>{{f.price}}</p>
-        </div>
+        <button>
+          <a href="{% url 'core:details' f.pk %}">
+            <div
+              class="bg-gray-50 w-40 h-48 text-gray-600 flex flex-col justify-center items-center my-5 mx-5 p-4 shadow-xl border rounded-lg"
+            >
+              <img class="w-24 h-24 object-cover" src="{{f.image.url}}" />
+              <p class="text-center">{{f.title}}</p>
+              <p>{{f.price}}</p>
+            </div>
+          </a>
+        </button>
 
         {% endfor %}
       </div>
@@ -94,13 +106,17 @@
 
       <div class="grid grid-cols-4">
         {% for w in women %}
-        <div
-          class="bg-gray-50 w-40 h-48 text-gray-600 flex flex-col justify-center items-center my-5 mx-5 p-4 shadow-xl border rounded-lg"
-        >
-          <img class="w-24 h-24 object-cover" src="{{w.image.url}}" />
-          <p class="text-center">{{w.title}}</p>
-          <p>{{w.price}}</p>
-        </div>
+        <button>
+          <a href="{% url 'core:details' w.pk %}">
+            <div
+              class="bg-gray-50 w-40 h-48 text-gray-600 flex flex-col justify-center items-center my-5 mx-5 p-4 shadow-xl border rounded-lg"
+            >
+              <img class="w-24 h-24 object-cover" src="{{w.image.url}}" />
+              <p class="text-center">{{w.title}}</p>
+              <p>{{w.price}}</p>
+            </div>
+          </a>
+        </button>
 
         {% endfor %}
       </div>

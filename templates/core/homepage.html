@@ -39,7 +39,7 @@
         <div class="font-medium text-teal-400 space-x-5">
           <a>WishList</a>
           <a>Cart</a>
-          <!--<a href="{% url 'userauths:login' %}">Login</a>-->
+          <a href="{% url 'userauths:login' %}">Login</a>
           <a href="{% url 'userauths:register' %}">SignUp</a>
         </div>
       </nav>
@@ -82,15 +82,6 @@
           </button></a
         >
       </nav>
-      {% if messages %} {% for message in messages %}
-
-      <div
-        class="w-[90%] h-8 flex items-center my-2 ml-2 p-5 rounded-md bg-cyan-500/40 border-[1px] border-gray-700/40 {{message.tags}}"
-      >
-        {{message}}
-      </div>
-
-      {% endfor %} {% endif %}
     </header>
     <main>
       <section class="flex gap-10 pr-2">

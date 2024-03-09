@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0" />
+    <title>CraftersHub</title>
+
+    {% include 'styles/css.html' %}
+    <link
+      rel="stylesheet"
+      href="{% static
+    'output/style.css' %}"
+    />
+  </head>
+  <body>
+    <h1>WELCOME VENDOR</h1>
+
+    <h2>UPDATE PROFILE</h2>
+    <form
+      method="POST"
+      enctype="multipart/form-data"
+      
+      class="flex flex-col space-y-5 ml-5"
+    >
+      {% csrf_token %}
+      <div>{{vendor_form.title}}</div>
+      <div>{{vendor_form.image}}</div>
+      <div>{{vendor_form.description}}</div>
+      <div>{{vendor_form.address}}</div>
+      <div>{{vendor_form.contact}}</div>
+      <button
+        class="bg-teal-500 w-32 p-2 rounded-lg font-medium text-gray-100"
+        type="submit"
+      >
+        Submit
+      </button>
+    </form>
+  </body>
+</html>

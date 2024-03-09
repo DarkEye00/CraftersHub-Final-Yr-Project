@@ -15,6 +15,13 @@
 
 <div>
   <h2>Products You might like</h2>
+  <ul>
+    {% for product in recommended %}
+    <li>
+      {{product.title}} Price: {{product.price}} Category: {{product.category}}
+    </li>
+    {% endfor %}
+  </ul>
 </div>
 
 {% endblock %}
