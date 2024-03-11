@@ -15,4 +15,5 @@ urlpatterns = [
     # search
     path("search/", views.search_view, name="search"),
     # path("recommend/<pk>/", views.recommend_view, name="recommend"),
+    path("add-products/", views.add_product, name="add-product"),
 ]

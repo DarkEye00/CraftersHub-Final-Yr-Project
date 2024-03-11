@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
-from django.http import HttpResponseRedirect
 from django.contrib.auth import logout
 from django.contrib import messages
 from userauths.forms import UserRegistrationForm, VendorProfileForm
@@ -95,8 +94,11 @@ def sign_in(request):
 
             if user is not None:  # user exists in the database
                 login(request, user)
-                messages.success(request, "Login Successful !")
-                return redirect("core:index")
+                if request.user.groups.filter(name="Customer"):
+                    messages.success(request, "Login Successful !")
+                    return redirect("core:index")
+                elif request.user.groups.filter(name="Vendor"):
+                    return redirect("userauths:profile")
 
             else:
                 messages.warning(
@@ -132,8 +134,8 @@ def create_vendor(request):
                 contact=vendor_form.cleaned_data["contact"],
                 user=request.user,
             )
-        
-            return redirect("userauths:success")
+
+            return redirect("userauths:profile")
         else:
             print(vendor_form.errors)
     else:
@@ -142,5 +144,10 @@ def create_vendor(request):
     return render(request, "userauths/vendor-login.html", {"vendor_form": vendor_form})
 
 
+@login_required
 def success_view(request):
-    return render(request, "userauths/success.html")
+    user = request.user
+    vendor = Vendor.objects.get(user=user)
+
+    context = {"user": user, "vendor": vendor}
+    return render(request, "userauths/vendor-profile.html", context)

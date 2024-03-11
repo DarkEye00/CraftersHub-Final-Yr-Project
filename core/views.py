@@ -1,6 +1,11 @@
-from django.shortcuts import render
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import linear_kernel
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from core.forms import ProductForm
+from django.contrib import messages
+
+
+# from sklearn.feature_extraction.text import TfidfVectorizer
+# from sklearn.metrics.pairwise import linear_kernel
 
 # Create your views here.from django.shortcuts import render
 from core.models import (
@@ -27,7 +32,7 @@ def index(request):
 
     home = Product.objects.filter(category="4", product_status="published")
 
-    furniture = Product.objects.filter(category="5", product_status="published")
+    furniture = Product.objects.filter(category="5", product_status="in_stock")
 
     women = Product.objects.filter(category="6", product_status="published")
 
@@ -126,74 +131,39 @@ def search_view(request):
     }
     return render(request, "core/search.html", context)
 
-'''
-def recommend_view(request, pk):
 
-    recommended = content_based_recommendation(pk)
+@login_required
+def add_product(request):
+    vendor = Vendor.objects.get(user=request.user)
+    categories = Category.objects.all()
 
-    context = {
-        "recomended": recommended,
-    }
+    if request.method == "POST":
+        product_form = ProductForm(request.POST, request.FILES)
 
-    return render(request, "core/recommend.html", context)
+        if product_form.is_valid():
+            # Retrieve or create the Category instance
+            category_name = product_form.cleaned_data["category"]
+            category, created = Category.objects.get_or_create(title=category_name)
 
+            # Create a new Product instance with the associated Category
+            Product.objects.create(
+                title=product_form.cleaned_data["title"],
+                description=product_form.cleaned_data["description"],
+                price=product_form.cleaned_data["price"],
+                specifications=product_form.cleaned_data["specifications"],
+                image=product_form.cleaned_data["image"],
+                product_status=product_form.cleaned_data["product_status"],
+                category=category,
+                vendor=vendor,
+                user=request.user,
+            )
+        messages.success(request, "Product added successfully")
+        return redirect("userauths:profile")
+    else:
+        product_form = ProductForm()
 
-def content_based_recommendation(pk):
-    # Fetch user's preferences or behaviors from the database
-    user_preferences = get_user_preferences_from_database(pk)
-
-    # Fetch item data from the database
-    products = Product.objects.all()
-
-    # Create a TF-IDF vectorizer
-    tfidf_vectorizer = TfidfVectorizer(stop_words="english")
-
-    # Use item features as document text for TF-IDF
-    item_descriptions = [
-        " ".join(
-            [
-                str(getattr(product, feature))
-                for feature in ["title", "description", "category", "price", "status"]
-            ]
-        )
-        for product in products
-    ]
-
-    # Debugging information
-    print("Length of training data before fitting:", len(item_descriptions))
-
-    # Fit the vectorizer on the item descriptions
-    tfidf_vectorizer.fit(item_descriptions)
-    tfidf_matrix = tfidf_vectorizer.transform(item_descriptions)
-    # Debugging information
-    print("Length of training data after fitting:", len(item_descriptions))
-
-    # Compute the cosine similarity between user preferences and item descriptions
-    cosine_similarities = linear_kernel(user_preferences, tfidf_matrix).flatten()
-
-    # Get indices of items sorted by similarity
-    recommended_indices = cosine_similarities.argsort()[::-1]
-
-    # Get the top N recommended items
-    top_n_recommendations = [products[i] for i in recommended_indices[:5]]
-
-    return top_n_recommendations
-
-
-def get_user_preferences_from_database(pk):
-    # Fetch and process user preferences from the database
-    # This could include user ratings, likes, etc.
-    # For simplicity, let's assume user preferences are a list of features
-    tfidf_vectorizer = TfidfVectorizer(stop_words="english")
-
-    user_preferences = get_user_features_from_database(pk)
-    return tfidf_vectorizer.transform([" ".join(user_preferences)])
-
-
-def get_user_features_from_database(pk):
-    # Fetch and process user features from the database
-    # This could include user preferences, purchase history, etc.
-    # For simplicity, let's assume user features are a list of features
-    user_features = ["price", "category", "product_status"]
-    return user_features
-'''
+    return render(
+        request,
+        "core/add_product.html",
+        {"product_form": product_form, "categories": categories},
+    )

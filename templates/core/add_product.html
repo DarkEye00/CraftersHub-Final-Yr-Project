@@ -1,0 +1,52 @@
+{% extends "partials/base.html" %} {% block content %}
+<section>
+  <!-- add_product.html -->
+  <div
+    id="addProductModal"
+    class="fixed inset-0 bg-black bg-opacity-50 justify-center items-center"
+  >
+    <div class="bg-white p-6 rounded shadow-lg">
+      <h2 class="text-2xl font-semibold mb-4">Add New Product</h2>
+      <form
+        method="POST"
+        enctype="multipart/form-data"
+        class="grid grid-cols-2 space-y-5 ml-5"
+      >
+        {% csrf_token %}
+        <div>
+          <label class="pt-5" for="{{product_form.category.id_for_label}}"
+            >Category:</label
+          >
+          <div>{{product_form.category}}</div>
+        </div>
+        <div>
+          <label class="pb-5">Add Product Image</label>
+
+          <div>{{product_form.image}}</div>
+        </div>
+        <div>{{product_form.title}}</div>
+        <div>{{product_form.description}}</div>
+        <div>{{product_form.price}}</div>
+        <div>{{product_form.specifications}}</div>
+
+        <div>{{product_form.product_status}}</div>
+
+        <button
+          type="submit"
+          class="bg-blue-500 text-white px-4 py-2 rounded w-44"
+        >
+          Add Product
+        </button>
+
+        <a
+          href="{% url 'userauths:profile' %}"
+          class="bg-blue-500 text-white px-4 py-2 rounded mt-10 w-20 text-center"
+        >
+          Back</a
+        >
+      </form>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

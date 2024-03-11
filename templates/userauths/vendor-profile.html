@@ -1,0 +1,62 @@
+{% extends "partials/base.html" %} {% block content %}
+<div class="container mx-auto mt-8">
+  <div class="flex justify-between items-center mb-8">
+    <h1 class="text-3xl font-semibold">Vendor Dashboard</h1>
+    <div class="flex items-center">
+      <img
+        src="{{vendor.image.url}}"
+        alt="Vendor Profile Picture"
+        class="rounded-full h-8 w-8 object-cover mr-2"
+      />
+      <span class="text-gray-700">{{user.username}}</span>
+    </div>
+  </div>
+
+  <!-- Add Product Form -->
+  <div class="mb-8 p-4 bg-white rounded shadow">
+    <h2 class="text-xl font-semibold mb-4">Add Product</h2>
+    <a
+      href="{% url 'core:add-product' %}"
+      class="bg-green-500 text-white px-4 py-2 rounded"
+    >
+      Add Product
+    </a>
+  </div>
+
+  <!-- View Added Products Section -->
+  <div class="mb-8 p-4 bg-white rounded shadow">
+    <h2 class="text-xl font-semibold mb-4">View Added Products</h2>
+    <!-- Display added products -->
+    <ul>
+      <!-- Sample product item, replace with dynamic content from backend -->
+      <li class="mb-2">
+        <span class="font-semibold">Product Name:</span> Sample Product
+        <button class="ml-2 text-red-500">Delete</button>
+      </li>
+      <!-- Repeat similar structure for each product -->
+    </ul>
+  </div>
+
+  <!-- Profile Picture Section -->
+  <div class="p-4 bg-white rounded shadow">
+    <h2 class="text-xl font-semibold mb-4">Profile Picture</h2>
+    <div class="flex items-center">
+      <!-- Current profile picture -->
+      <img
+        src="{{vendor.image.url}}"
+        alt="Current Profile Picture"
+        class="rounded-full h-16 w-16 object-cover mr-4"
+      />
+      <!-- Form for updating profile picture -->
+      <form>
+        <!-- Input for selecting a new profile picture -->
+        <!-- Submit button -->
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">
+          Update Profile Picture
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

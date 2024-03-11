@@ -70,12 +70,12 @@ class Product(models.Model):
     )
     title = models.CharField(max_length=100)
 
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     category = models.ForeignKey(
-        Category, on_delete=models.SET_NULL, null=True, related_name="category"
+        Category, on_delete=models.CASCADE, null=True, related_name="category"
     )
     vendor = models.ForeignKey(
-        Vendor, on_delete=models.SET_NULL, null=True, related_name="product"
+        Vendor, on_delete=models.CASCADE, null=True, related_name="product"
     )
 
     image = models.ImageField(upload_to=user_directory_path)
@@ -88,22 +88,17 @@ class Product(models.Model):
     # tags = models.ForeignKey(Tags, on_delete=models.SET_NULL, null=True)
 
     STATUS = (
-        ("rejected", "Rejected"),
-        ("published", "Published"),
+        ("in_stock", "In_stock"),
+        ("not_available", "Not_available"),
         ("popular", "Popular"),
     )
 
-    product_status = models.CharField(
-        choices=STATUS, max_length=10, default="in_review"
-    )
-    status = models.BooleanField(default=True)
-    in_stock = models.BooleanField(default=True)
-
+    product_status = models.CharField(choices=STATUS, max_length=30, default="in_stock")
     sku = ShortUUIDField(
         unique=True, length=5, max_length=10, prefix="sku", alphabet="12345678"
     )
 
-    date = models.DateTimeField(auto_now_add=True)
+    date_added = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(null=True, blank=True)
 
     class Meta:

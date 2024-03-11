@@ -84,6 +84,7 @@
       {% if messages %} {% for message in messages %}
 
       <div
+        id="notify"
         class="w-[90%] h-8 flex items-center my-2 ml-2 p-5 rounded-md bg-cyan-500/40 border-[1px] border-gray-700/40 {{message.tags}}"
       >
         {{message}}
@@ -93,5 +94,14 @@
     </header>
 
     {% block content %} {% endblock %}
+    <script>
+      // Get a reference to the div
+      var myDiv = document.getElementById("notify");
+
+      // Use setTimeout to hide the div after 2000 milliseconds (2 seconds)
+      setTimeout(function () {
+        myDiv.style.display = "none";
+      }, 1000);
+    </script>
   </body>
 </html>

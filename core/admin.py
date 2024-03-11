@@ -21,7 +21,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 
 class VendorAdmin(admin.ModelAdmin):
-    list_display = ["title", "vendor_image"]
+    list_display = ["title", "vendor_image", "user"]
 
 
 class CartOrderAdmin(admin.ModelAdmin):
@@ -59,9 +59,9 @@ class ProductsAdmin(admin.ModelAdmin):
         "user",
         "title",
         "product_image",
+        "category",
         "price",
-        "status",
-        "in_stock",
+        "product_status",
         "pid",
     ]
 
