@@ -1,0 +1,27 @@
+{% extends 'partials/base.html' %} {% block content %}
+
+<main>
+  <section class="mr-2">
+    <div class="bg-white w-full mt-5 rounded-lg">
+      <h2
+        class="bg-gray-900 p-3 rounded-t-md text-gray-100 font-semibold text-xl"
+      >
+        Available Products
+      </h2>
+
+      <div class="grid grid-cols-4">
+        {% for p in products %}
+        <div
+          class="bg-gray-50 w-40 h-48 text-gray-600 flex flex-col justify-center items-center my-5 mx-5 p-4 shadow-xl border rounded-lg"
+        >
+          <img class="w-28 h-28 object-cover" src="{{p.image.url}}" />
+          <p class="text-center">{{p.title}}</p>
+          <p>{{p.price}}</p>
+        </div>
+
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock %}

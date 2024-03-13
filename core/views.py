@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from core.forms import ProductForm
 from django.contrib import messages
+import json
+from django.http import JsonResponse
 
 
 # from sklearn.feature_extraction.text import TfidfVectorizer
@@ -30,11 +32,11 @@ def index(request):
 
     products = Product.objects.all()
 
-    home = Product.objects.filter(category="4", product_status="published")
+    home = Product.objects.filter(category="3", product_status="in_stock")
 
-    furniture = Product.objects.filter(category="5", product_status="in_stock")
+    furniture = Product.objects.filter(category="4", product_status="in_stock")
 
-    women = Product.objects.filter(category="6", product_status="published")
+    women = Product.objects.filter(category="6", product_status="in_stock")
 
     # flash = Product.objects.latest()
 
@@ -167,3 +169,73 @@ def add_product(request):
         "core/add_product.html",
         {"product_form": product_form, "categories": categories},
     )
+
+
+@login_required
+def vendor_products(request):
+    user = request.user
+    vendor = Vendor.objects.get(user=user)
+
+    products = Product.objects.filter(vendor=vendor)
+
+    context = {"user": user, "vendor": vendor, "products": products}
+
+    return render(request, "core/view_products.html", context)
+
+
+def add_to_cart(request):
+    cart_product = {}
+    cart_product[str(request.GET["id"])] = {
+        "title": request.GET["title"],
+        "qty": request.GET["qty"],
+        "price": request.GET["price"],
+    }
+    if "cart_data_obj" in request.session:
+        if str(request.GET["id"]) in request.session["cart_data_obj"]:
+            cart_data = request.session["cart_data_obj"]
+            cart_data[str(request.GET["id"])]["qty"] = int(
+                cart_product[str(request.GET["id"])]["qty"]
+            )
+            cart_data.update(cart_data)
+            request.session["cart_data_obj"] = cart_data
+        else:
+            cart_data = request.session["cart_data_obj"]
+            cart_data.update(cart_product)
+            request.session["cart_data_obj"] = cart_data
+    else:
+        request.session["cart_data_obj"] = cart_product
+
+    return JsonResponse(
+        {
+            "data": request.session["cart_data_obj"],
+            "totalcartitems": len(request.session["cart_data_obj"]),
+        }
+    )
+
+
+def cart_items(request):
+    cart_total_amount = 0
+
+
+"""
+    if "cart_data_obj" in request.session:
+        for p_id, item in request.session("cart_data_obj"):
+            cart_total_amount += int(item["qty"]) * float(item["price"])
+
+        return render(
+            request,
+            "core/cart.html",
+            {
+                "cart_data": request.session["cart_data_obj"],
+                "totalcartitems": len(request.session["cart_data_obj"]),
+            },
+        )
+    else:
+        return render(
+            request,
+            "core.cart.html",
+            {
+                "cart_data": "",
+                "totalcartitems": len(request.session["cart_data_obj"]),
+            },
+        ) """

@@ -27,14 +27,12 @@
   <div class="mb-8 p-4 bg-white rounded shadow">
     <h2 class="text-xl font-semibold mb-4">View Added Products</h2>
     <!-- Display added products -->
-    <ul>
-      <!-- Sample product item, replace with dynamic content from backend -->
-      <li class="mb-2">
-        <span class="font-semibold">Product Name:</span> Sample Product
-        <button class="ml-2 text-red-500">Delete</button>
-      </li>
-      <!-- Repeat similar structure for each product -->
-    </ul>
+    <a
+      href="{% url 'core:your-products' %}"
+      class="bg-green-500 text-white px-4 py-2 rounded"
+    >
+      View Products
+    </a>
   </div>
 
   <!-- Profile Picture Section -->

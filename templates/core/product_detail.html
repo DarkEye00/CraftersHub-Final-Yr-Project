@@ -5,15 +5,18 @@
     <figure
       class="w-64 h-64 flex justify-between items-center shadow-xl rounded-md"
     >
-      <img class="w-56 h-56 mx-5" src="{{product.image.url}}" />
+      <img class="w-60 h-60 mx-5 object-cover" src="{{product.image.url}}" />
     </figure>
     <div class="flex flex-col space-y-5">
       <p class="text-3xl">{{product.title}}</p>
-      <p class="text-2xl text-emerald-500">Ksh {{product.price}}</p>
+      <p class="text-2xl text-emerald-500 product-price">
+        Ksh {{product.price}}
+      </p>
+
       <input
         type="hidden"
-        class="product-id"
-        value="{{product.id}}"
+        class="product-pid"
+        value="{{product.pid}}"
         name=""
         id=""
       />
@@ -25,6 +28,7 @@
         id=""
       />
       <input
+        id="product-quantity"
         class="border-2 border-gray-400 p-3 w-28"
         type="number"
         value="1"
@@ -44,7 +48,7 @@
 
   <section class="mt-5">
     <div>
-      <h2>descroption</h2>
+      <h2>Description</h2>
     </div>
   </section>
 </main>

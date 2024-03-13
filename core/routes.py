@@ -1,6 +1,7 @@
 from django.urls import path
 from core import views
 
+
 app_name = "core"
 
 urlpatterns = [
@@ -15,5 +16,9 @@ urlpatterns = [
     # search
     path("search/", views.search_view, name="search"),
     # path("recommend/<pk>/", views.recommend_view, name="recommend"),
+    path("your-products/", views.vendor_products, name="your-products"),
     path("add-products/", views.add_product, name="add-product"),
+    # filtr products
+    path("add-to-cart/", views.add_to_cart, name="add-to-cart"),
+    path("cart/", views.cart_items, name="cart"),
 ]

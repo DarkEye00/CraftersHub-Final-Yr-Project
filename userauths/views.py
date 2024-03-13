@@ -151,3 +151,11 @@ def success_view(request):
 
     context = {"user": user, "vendor": vendor}
     return render(request, "userauths/vendor-profile.html", context)
+
+
+@login_required
+def customer_profile(request):
+    # Logic to retrieve customer profile data
+    customer = User.objects.filter(role="customer")
+
+    return render(request, "userauths/customer-profile.html", {"customer": customer})

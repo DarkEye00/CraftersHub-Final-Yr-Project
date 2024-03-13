@@ -1,0 +1,28 @@
+{% extends "partials/base.html" %} {% block content %}
+
+<main>
+  <div class="p-10">
+    <table class="border-2 rounded-md">
+      <thead class="rounded-md">
+        <tr class="bg-gray-400 rounded-md">
+          <th>
+            <input
+              class="form-check"
+              type="checkbox"
+              name="checkbox"
+              id="example"
+            />
+            <label for="example"></label>
+          </th>
+          <th class="pr-56 p-5">Products</th>
+          <th class="pr-10">Quantity</th>
+          <th class="pr-10">Price</th>
+          <th class="pr-10">Subtotal</th>
+          <th class="pr-10">Remove</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+</main>
+
+{% endblock %}
