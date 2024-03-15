@@ -21,4 +21,5 @@ urlpatterns = [
     # filtr products
     path("add-to-cart/", views.add_to_cart, name="add-to-cart"),
     path("cart/", views.cart_items, name="cart"),
+    path("delete-from-cart/", views.delete_cart_item, name="delete-from-cart"),
 ]

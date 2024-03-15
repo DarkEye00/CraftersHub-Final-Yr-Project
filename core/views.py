@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from core.forms import ProductForm
 from django.contrib import messages
-import json
+from django.template.loader import render_to_string
 from django.http import JsonResponse
 
 
@@ -188,7 +188,9 @@ def add_to_cart(request):
     cart_product[str(request.GET["id"])] = {
         "title": request.GET["title"],
         "qty": request.GET["qty"],
+        "image": request.GET["image"],
         "price": request.GET["price"],
+        "pid": request.GET["pid"],
     }
     if "cart_data_obj" in request.session:
         if str(request.GET["id"]) in request.session["cart_data_obj"]:
@@ -214,12 +216,11 @@ def add_to_cart(request):
 
 
 def cart_items(request):
+
     cart_total_amount = 0
 
-
-"""
     if "cart_data_obj" in request.session:
-        for p_id, item in request.session("cart_data_obj"):
+        for p_id, item in request.session["cart_data_obj"].items():
             cart_total_amount += int(item["qty"]) * float(item["price"])
 
         return render(
@@ -228,14 +229,37 @@ def cart_items(request):
             {
                 "cart_data": request.session["cart_data_obj"],
                 "totalcartitems": len(request.session["cart_data_obj"]),
+                "cart_total_amount": cart_total_amount,
             },
         )
     else:
-        return render(
-            request,
-            "core.cart.html",
-            {
-                "cart_data": "",
-                "totalcartitems": len(request.session["cart_data_obj"]),
-            },
-        ) """
+        messages.warning(request, "Your cart is Empty")
+        return redirect("core:index")
+
+
+def delete_cart_item(request):
+    product_id = str(request.GET["id"])
+
+    if "cart_data_obj" in request.session:
+        if product_id in request.session["cart_data_obj"]:
+            cart_data = request.session["cart_data_obj"]
+            del request.session["cart_data_obj"][product_id]
+            request.session["cart_data_obj"] = cart_data
+
+    cart_total_amount = 0
+
+    if "cart_data_obj" in request.session:
+        for p_id, item in request.session["cart_data_obj"].items():
+            cart_total_amount += int(item["qty"]) * float(item["price"])
+
+    context = render_to_string(
+        "core/async/cart-list.html",
+        {
+            "cart_data": request.session["cart_data_obj"],
+            "totalcartitems": len(request.session["cart_data_obj"]),
+            "cart_total_amount": cart_total_amount,
+        },
+    )
+    return JsonResponse(
+        {"data": context, "totalcartitems": len(request.session["cart_data_obj"])}
+    )
