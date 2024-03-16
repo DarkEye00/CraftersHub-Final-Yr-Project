@@ -13,6 +13,7 @@
       href="{% static
     'output/style.css' %}"
     />
+    <script src="{% static 'JQUERY/jquery.js' %}"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -106,82 +107,7 @@
     </header>
 
     {% block content %} {% endblock %}
-    <script>
-      // Get a reference to the div
-      var myDiv = document.getElementById("notify");
-
-      // Use setTimeout to hide the div after 2000 milliseconds (2 seconds)
-      setTimeout(function () {
-        myDiv.style.display = "none";
-      }, 1000);
-    </script>
-    <script>
-      //Add to cart
-
-      $("#add-to-cart-btn").on("click", function () {
-        let quantity = $("#product-quantity").val();
-        let product_title = $(".product-title").val();
-        let product_id = $(".product-pid").val();
-        let product_price = $(".product-price").text();
-        let product_image = $(".product-image").attr("src");
-        let this_val = $(this);
-
-        console.log("Quantity:", quantity);
-        console.log("title:", product_title);
-        console.log("ID:", product_id);
-        console.log("price:", product_price);
-        console.log("current_element:", this_val);
-        console.log("Image:", product_image);
-
-        $.ajax({
-          url: "/add-to-cart",
-          data: {
-            id: product_id,
-            qty: quantity,
-            title: product_title,
-            price: product_price,
-            image: product_image,
-            pid: product_id,
-          },
-          dataType: "json",
-          beforeSend: function () {
-            console.log("Adding products to cart....");
-          },
-          success: function (response) {
-            this_val.html("Added to cart");
-            console.log("Products added to cart");
-            $(".cart-items-count").text(response.totalcartitems);
-            this_val.attr("disabled", false);
-          },
-        });
-      });
-    </script>
-
-    <script>
-      //Delete Productlet
-      $(document).on("click", ".delete-product", function () {
-        let product_id = $(this).attr("data-product");
-        let this_val = $(this);
-
-        console.log("Product Id:", product_id);
-
-        $.ajax({
-          url: "/delete-from-cart",
-          data: {
-            id: product_id,
-          },
-          dataType: "json",
-          beforeSend: function () {
-            this_val.hide();
-          },
-          success: function (response) {
-            this_val.show();
-            console.log("Product removed from cart");
-            $(".cart-items-count").text(response.totalcartitems);
-            $("#cart-list").html(response.data);
-          },
-        });
-      });
-    </script>
+    
+    <script src="{% static 'js/function.js' %}"></script>
   </body>
 </html>

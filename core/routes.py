@@ -22,4 +22,6 @@ urlpatterns = [
     path("add-to-cart/", views.add_to_cart, name="add-to-cart"),
     path("cart/", views.cart_items, name="cart"),
     path("delete-from-cart/", views.delete_cart_item, name="delete-from-cart"),
+    # Adding Reviews
+    path("ajax-add-review/<pk>", views.add_review_form, name="ajax-add-review"),
 ]

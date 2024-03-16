@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from core.forms import ProductForm
+from core.forms import ProductForm, ProductReviewForm
 from django.contrib import messages
 from django.template.loader import render_to_string
 from django.http import JsonResponse
+from django.db.models import Avg
 
 
 # from sklearn.feature_extraction.text import TfidfVectorizer
@@ -104,7 +105,23 @@ def category_list_view(request):
 def product_detail_view(request, pk):
     product = Product.objects.get(pk=pk)
 
-    context = {"product": product}
+    # getting all product reviews
+    reviews = ProductReview.objects.filter(product=product).order_by("-date")
+
+    # Average ratings for specific product
+    average_rating = ProductReview.objects.filter(product=product).aggregate(
+        rating=Avg("rating")
+    )
+
+    # product review_form
+    review_form = ProductReviewForm()
+
+    context = {
+        "product": product,
+        "reviews": reviews,
+        "average_rating": average_rating,
+        "review_form": review_form,
+    }
 
     return render(request, "core/product_detail.html", context)
 
@@ -262,4 +279,32 @@ def delete_cart_item(request):
     )
     return JsonResponse(
         {"data": context, "totalcartitems": len(request.session["cart_data_obj"])}
+    )
+
+
+def add_review_form(request, pk):
+    product = Product.objects.get(pk=pk)
+    user = request.user
+
+    review = ProductReview.objects.create(
+        user=user,
+        product=product,
+        review=request.POST["review"],
+        rating=request.POST["rating"],
+    )
+    context = {
+        "user": user.username,
+        "review": request.POST["review"],
+        "rating": request.POST["rating"],
+    }
+    average_reviews = ProductReview.objects.filter(product=product).aggregate(
+        rating=Avg("rating")
+    )
+
+    return JsonResponse(
+        {
+            "bool": True,
+            "context": context,
+            "average_review": average_reviews,
+        }
     )

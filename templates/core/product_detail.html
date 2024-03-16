@@ -47,9 +47,74 @@
     </div>
   </div>
 
-  <section class="mt-5">
-    <div>
-      <h2>Description</h2>
+  <section class="flex">
+    <div class="container w-2/3 mt-5 p-5 border border-gray-400">
+      <div class="flex gap-10">
+        <button
+          class="border border-gray-400 px-2 py-1 rounded-xl font-medium"
+          id="descriptionBtn"
+        >
+          Description
+        </button>
+        <button
+          class="border border-gray-400 px-2 py-1 rounded-xl font-medium"
+          id="specificationBtn"
+        >
+          Specification
+        </button>
+        <button
+          class="border border-gray-400 px-2 py-1 rounded-xl font-medium"
+          id="reviewsBtn"
+        >
+          Reviews ({{reviews.count}})
+        </button>
+      </div>
+      <div class="mt-2 ml-5">
+        <div id="description">
+          <p>{{product.description}}</p>
+        </div>
+        <div id="specification" class="hidden">
+          <p>{{product.specifications}}.</p>
+        </div>
+
+        <div id="reviews" class="hidden">
+          {% for r in reviews %}
+          <div class="pb-5">
+            <a class="text-green-500 font-semibold py-2"
+              >{{r.user.username|title}} |<span class="text-black font-light">
+                {{r.date|date}}</span
+              ></a
+            >
+            <div class="w-[500px]">
+              <hr />
+            </div>
+            <p>{{r.review}}</p>
+          </div>
+          {% endfor %}
+          <div>
+            <strong class="text-green-600 italic" id="review-res"></strong>
+            <form
+              class="flex flex-col comment-form hide-comment-form"
+              id="CommentForm"
+              method="POST"
+              action="{% url 'core:ajax-add-review' product.pid %}"
+            >
+              <h6>Add Review</h6>
+
+              {% csrf_token %} {{review_form}}
+              <button type="submit" class="bg-green-600">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-5 pl-2 w-auto font-medium text-black">
+      <h2>Average Star Rating</h2>
+
+      <p>
+        <span class="px-2 text-yellow-500">★★★★★</span
+        >{{average_rating.rating|floatformat}} of 5
+      </p>
     </div>
   </section>
 </main>
