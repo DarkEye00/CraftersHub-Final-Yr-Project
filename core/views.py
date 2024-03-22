@@ -6,6 +6,13 @@ from django.template.loader import render_to_string
 from django.http import JsonResponse
 from django.db.models import Avg
 
+from django.urls import reverse
+from django.conf import settings
+from django.views.decorators.csrf import csrf_exempt
+from paypal.standard.forms import PayPalPaymentsForm
+
+# from core.recommender import ContentBasedRecommender
+
 
 # from sklearn.feature_extraction.text import TfidfVectorizer
 # from sklearn.metrics.pairwise import linear_kernel
@@ -35,6 +42,8 @@ def index(request):
 
     home = Product.objects.filter(category="3", product_status="in_stock")
 
+    paint = Product.objects.filter(category="5", product_status="in_stock")
+
     furniture = Product.objects.filter(category="4", product_status="in_stock")
 
     women = Product.objects.filter(category="6", product_status="in_stock")
@@ -47,6 +56,7 @@ def index(request):
         "home": home,
         "furniture": furniture,
         "women": women,
+        "paint": paint,
     }
     return render(request, "core/index.html", context)
 
@@ -141,12 +151,10 @@ def search_view(request):
     # key = Product.objects.get(pk=pk)
 
     products = Product.objects.filter(title__icontains=query)
-    # recommended = content_based_recommendation(key)
 
     context = {
         "products": products,
         "query": query,
-        # "recommended": recommended,
     }
     return render(request, "core/search.html", context)
 
@@ -308,3 +316,65 @@ def add_review_form(request, pk):
             "average_review": average_reviews,
         }
     )
+
+
+@login_required
+def checkout_view(request):
+    host = request.get_host()
+    paypal_dict = {
+        "business": settings.PAYPAL_RECEIVER_EMAIL,
+        "amount": "200",
+        "item_name": "Order-item-15",
+        "invoice": "INVOICE 15",
+        "currency_code": "USD",
+        "return_url": "https://{}{}".format(host, reverse("core:payment_completed")),
+        "cancel_url": "https://{}{}".format(host, reverse("core:payment_failed")),
+    }
+
+    paypal_payment_button = PayPalPaymentsForm(initial=paypal_dict)
+
+    cart_total_amount = 0
+
+    if "cart_data_obj" in request.session:
+        for p_id, item in request.session["cart_data_obj"].items():
+            cart_total_amount += int(item["qty"]) * float(item["price"])
+
+        return render(
+            request,
+            "core/checkout.html",
+            {
+                "cart_data": request.session["cart_data_obj"],
+                "totalcartitems": len(request.session["cart_data_obj"]),
+                "cart_total_amount": cart_total_amount,
+                "paypal_payment_button": paypal_payment_button,
+            },
+        )
+    else:
+        return redirect("core:cart")
+
+
+"""def detail(request, pk):
+    # Get recommendations for the specified product
+    recommendations = recommend_similar_products(pk=pk)
+
+    context = {
+        "recommendations": recommendations,
+    }
+    return render(request, "core/detail.html", context)
+
+def recommend_products(request, pid):
+    recommender = ContentBasedRecommender()
+    recommender.fit()
+    recommendations = recommender.recommend(pid)
+    recommended_product_ids = [rec[0] for rec in recommendations]
+    recommended_products = Product.objects.filter(pid__in=recommended_product_ids)
+    context = {"recommended_products": recommended_products}
+    return render(request, "recommendations.html", context) """
+
+
+def payment_completed_view(request):
+    return render(request, "core/payment_completed.html")
+
+
+def payment_failed_view(request):
+    return render(request, "core/payment_failed.html")

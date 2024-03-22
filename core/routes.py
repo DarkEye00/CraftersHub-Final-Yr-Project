@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from core import views
 
 
@@ -24,4 +24,12 @@ urlpatterns = [
     path("delete-from-cart/", views.delete_cart_item, name="delete-from-cart"),
     # Adding Reviews
     path("ajax-add-review/<pk>", views.add_review_form, name="ajax-add-review"),
+    # Checkout
+    path("checkout/", views.checkout_view, name="checkout"),
+    # paypal url
+    path("paypal/", include("paypal.standard.ipn.urls")),
+    # payment successful
+    path("payment-completed/", views.payment_completed_view, name="payment_completed"),
+    # payment failed
+    path("payment-failed/", views.payment_failed_view, name="payment_failed"),
 ]

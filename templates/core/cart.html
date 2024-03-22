@@ -44,6 +44,14 @@
       </tbody>
     </table>
     <p class="mt-4 font-medium">Total Price: Ksh {{ cart_total_amount }}</p>
+    <div class="my-10">
+      <a
+        href="{% url 'core:checkout' %}"
+        class="bg-indigo-500 text-white py-2 px-4 rounded-md hover:bg-indigo-600"
+      >
+        Checkout
+      </a>
+    </div>
   </div>
 </main>
 

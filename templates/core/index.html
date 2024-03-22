@@ -122,6 +122,33 @@
       </div>
     </div>
   </section>
+
+  <section class="mr-2">
+    <div class="bg-white w-full mt-5 rounded-lg">
+      <h2
+        class="bg-gray-900 p-3 rounded-t-md text-gray-100 font-semibold text-xl"
+      >
+        Custom Wall Paints
+      </h2>
+
+      <div class="grid grid-cols-4">
+        {% for c in paint %}
+        <button>
+          <a href="{% url 'core:details' c.pk %}">
+            <div
+              class="bg-gray-50 w-40 h-48 text-gray-600 flex flex-col justify-center items-center my-5 mx-5 p-4 shadow-xl border rounded-lg"
+            >
+              <img class="w-24 h-24 object-cover" src="{{c.image.url}}" />
+              <p class="text-center">{{c.title}}</p>
+              <p>{{c.price}}</p>
+            </div>
+          </a>
+        </button>
+
+        {% endfor %}
+      </div>
+    </div>
+  </section>
 </main>
 
 {% endblock %}

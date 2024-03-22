@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body class="bg-gray-100">
+    <div class="container mx-auto py-12">
+      <div class="max-w-md mx-auto bg-white p-8 border rounded-md shadow-md">
+        <h2 class="text-2xl font-semibold mb-6">Checkout</h2>
+        <!-- Shipping Information -->
+        <div class="mb-6">
+          <h3 class="text-lg font-semibold mb-2">Shipping Information</h3>
+          <form>
+            <div class="mb-4">
+              <label for="name" class="block text-sm font-medium text-gray-700"
+                >Name</label
+              >
+              <input
+                type="text"
+                id="name"
+                name="name"
+                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+              />
+            </div>
+            <!-- Other fields (address, city, state, zip code, etc.) -->
+          </form>
+        </div>
+        <!-- Order Summary -->
+        <div>
+          <h3 class="text-lg font-semibold mb-2">Order Summary</h3>
+          <!-- Cart items -->
+          <div class="flex justify-between mb-4">
+            <div class="text-gray-600">Product Name</div>
+            <div class="text-gray-600">Quantity</div>
+            <div class="text-gray-600">Price</div>
+          </div>
+          <!-- Sample Cart Items (Replace with dynamic data) -->
+          <div class="flex justify-between mb-2">
+            <div>Product 1</div>
+            <div>1</div>
+            <div>$10.00</div>
+          </div>
+          <div class="flex justify-between mb-2">
+            <div>Product 2</div>
+            <div>2</div>
+            <div>$20.00</div>
+          </div>
+          <!-- Total -->
+          <div class="flex justify-between font-semibold">
+            <div>Total</div>
+            <div>$30.00</div>
+          </div>
+        </div>
+        <!-- Checkout Button -->
+        <div class="mt-6">
+          <button
+            class="bg-indigo-500 text-white py-2 px-4 rounded-md hover:bg-indigo-600"
+          >
+            Checkout
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

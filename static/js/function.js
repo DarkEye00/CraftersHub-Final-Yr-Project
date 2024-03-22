@@ -1,11 +1,4 @@
 console.log("Working Fine");
-// Get a reference to the div
-var myDiv = document.getElementById("notify");
-
-// Use setTimeout to hide the div after 2000 milliseconds (2 seconds)
-setTimeout(function () {
-  myDiv.style.display = "none";
-}, 1000);
 
 ////////////////////////////////
 //Add to cart functionality
@@ -72,46 +65,6 @@ $(document).on("click", ".delete-product", function () {
     },
   });
 });
-///////////////////////////////////////////////////////////
-document
-  //buton functionality in the product detail page
-  .getElementById("descriptionBtn")
-  .addEventListener("click", function () {
-    document.getElementById("reviews").style.display = "none";
-    document.getElementById("specification").style.display = "none";
-    document.getElementById("description").style.display = "block";
-    descriptionBtn.classList.add("text-green-700");
-    descriptionBtn.classList.remove("text-gray-700");
-    reviewsBtn.classList.add("text-gray-700");
-    reviewsBtn.classList.remove("text-green-700");
-    specificationBtn.classList.add("text-gray-700");
-    specificationBtn.classList.remove("text-green-700");
-  });
-
-document.getElementById("reviewsBtn").addEventListener("click", function () {
-  document.getElementById("description").style.display = "none";
-  document.getElementById("specification").style.display = "none";
-  document.getElementById("reviews").style.display = "block";
-  reviewsBtn.classList.add("text-green-700");
-  reviewsBtn.classList.remove("text-gray-700");
-  descriptionBtn.classList.add("text-gray-700");
-  descriptionBtn.classList.remove("text-green-700");
-  specificationBtn.classList.add("text-gray-700");
-  specificationBtn.classList.remove("text-green-700");
-});
-document
-  .getElementById("specificationBtn")
-  .addEventListener("click", function () {
-    document.getElementById("reviews").style.display = "none";
-    document.getElementById("specification").style.display = "block";
-    document.getElementById("description").style.display = "none";
-    specificationBtn.classList.add("text-green-700");
-    specificationBtn.classList.remove("text-gray-700");
-    descriptionBtn.classList.remove("text-green-700");
-    descriptionBtn.classList.add("text-gray-700");
-    reviewsBtn.classList.add("text-gray-700");
-    reviewsBtn.classList.remove("text-green-700");
-  });
 
 //////////////////////////////////////
 //Process review.comments
@@ -127,19 +80,36 @@ $("#CommentForm").submit(function (e) {
 
     success: function (response) {
       console.log("Comment Saved");
-      /*
+
       if (response.bool == true) {
         $("#review-res").html("Review Added Successfully");
         $(".hide-comment-form").hide();
 
-          
-          let _html = '<div class="pb-5"></div>'
-              _html += '<a class="text-green-500 font-semibold py-2"
-              >{{r.user.username|title}} |<span class="text-black font-light">
-                {{r.date|date}}</span
-              ></a
-            >'
-      } */
+        let _html = '<div class="pb-5">';
+        _html += '<div class="flex">';
+
+        _html +=
+          '<a class="text-green-500 font-semibold py-2"> ' +
+          response.context.user +
+          '<span class="text-black font-light"></span>';
+        ("</a>");
+        _html = "<p>";
+        for (let i = 1; i <= response.context.rating; i++) {
+          _html += "<p></p>";
+        }
+        ("</p>");
+
+        _html += "</div>";
+        _html += '<div class="w-[500px]">';
+        _html += "<hr />";
+        _html += "</div>";
+
+        _html += "<p>" + response.context.review + "</p>";
+        _html += "</div>";
+        $(".comment-list").prepend(_html);
+
+        location.reload();
+      }
     },
   });
 });

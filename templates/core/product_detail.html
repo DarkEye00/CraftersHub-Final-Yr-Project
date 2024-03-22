@@ -79,12 +79,17 @@
 
         <div id="reviews" class="hidden">
           {% for r in reviews %}
-          <div class="pb-5">
-            <a class="text-green-500 font-semibold py-2"
-              >{{r.user.username|title}} |<span class="text-black font-light">
-                {{r.date|date}}</span
-              ></a
-            >
+          <div class="pb-5 comment-list">
+            <div class="flex">
+              <a class="text-green-500 font-semibold py-2"
+                >{{r.user.username|title}} |<span class="text-black font-light">
+                  {{r.date|date}}</span
+                ></a
+              >
+              {% for s in r.rating|ljust:r.rating %}
+              <p class="px-1 mt-2 text-yellow-500 text-md">★</p>
+              {% endfor %}
+            </div>
             <div class="w-[500px]">
               <hr />
             </div>
@@ -94,15 +99,19 @@
           <div>
             <strong class="text-green-600 italic" id="review-res"></strong>
             <form
-              class="flex flex-col comment-form hide-comment-form"
+              class="flex flex-col space-y-2 comment-form hide-comment-form"
               id="CommentForm"
               method="POST"
               action="{% url 'core:ajax-add-review' product.pid %}"
             >
-              <h6>Add Review</h6>
-
               {% csrf_token %} {{review_form}}
-              <button type="submit" class="bg-green-600">Submit</button>
+              <button
+                type="submit"
+                id="CommentForm"
+                class="bg-green-600 w-20 text-white p-2 rounded-md"
+              >
+                Submit
+              </button>
             </form>
           </div>
         </div>

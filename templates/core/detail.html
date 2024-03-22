@@ -1,0 +1,22 @@
+<!-- product_detail.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product Detail</title>
+</head>
+<body>
+    <h1>Product Detail</h1>
+    
+    <!-- Display details of the target product -->
+    <h2>{{ target_product.title }}</h2>
+    <p>Description: {{ target_product.description }}</p>
+    
+    <!-- Display recommended products -->
+    <h3>Recommended Products:</h3>
+    <ul>
+        {% for recommendation in recommendations %}
+            <li>{{ recommendation.title }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

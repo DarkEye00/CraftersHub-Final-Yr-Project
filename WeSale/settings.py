@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     # Custom_project_apps
     "core",
     "userauths",
+    # paypal integration
+    "paypal.standard.ipn",
 ]
 
 MIDDLEWARE = [
@@ -143,3 +145,7 @@ JAZZMIN_SETTINGS = {
 }
 
 AUTH_USER_MODEL = "userauths.User"
+
+
+PAYPAL_RECEIVER_EMAIL = "josephodhiambo509@gmail.com"
+PAYPAL_TEST = True
